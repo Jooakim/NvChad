@@ -32,28 +32,28 @@ local hooks = require "core.hooks"
 -- examples below:
 
 hooks.add("install_plugins", function(use)
-  use {
-    "martinda/Jenkinsfile-vim-syntax",
-    event = "InsertEnter",
-  }
-  use {
-    "tpope/vim-fugitive",
-    event = "InsertEnter",
-  }
-  use {
-    "kabouzeid/nvim-lspinstall",
-  }
-  use {
-    "jose-elias-alvarez/null-ls.nvim",
-    after = "nvim-lspconfig",
-    config = function()
-      require("custom.plugin_confs.null-ls").setup()
-    end,
-  }
-  use {
-    "heavenshell/vim-pydocstring",
-    event = "InsertEnter",
-  }
+   use {
+      "martinda/Jenkinsfile-vim-syntax",
+      event = "InsertEnter",
+   }
+   use {
+      "tpope/vim-fugitive",
+      event = "InsertEnter",
+   }
+   use {
+      "kabouzeid/nvim-lspinstall",
+   }
+   use {
+      "jose-elias-alvarez/null-ls.nvim",
+      after = "nvim-lspconfig",
+      config = function()
+         require("custom.plugin_confs.null-ls").setup()
+      end,
+   }
+   use {
+      "heavenshell/vim-pydocstring",
+      event = "InsertEnter",
+   }
 end)
 
 -- alternatively, put this in a sub-folder like "lua/custom/plugins/mkdir"

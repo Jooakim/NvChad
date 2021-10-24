@@ -14,15 +14,14 @@ M.plugin_status = {
 -- NvChad included plugin options & overrides
 M.plugins = {
    options = {
-       lspconfig = {
+      lspconfig = {
          setup_lspconf = "custom.lspconfig",
-      }
+      },
    },
    status = {
-       vim_matchup = false, -- % operator enhancements
-       bufferline = false, -- to autosave files
-       better_esacpe=false,
-
+      vim_matchup = false, -- % operator enhancements
+      bufferline = false, -- to autosave files
+      better_esacpe = false,
    },
    -- To change the Packer `config` of a plugin that comes with NvChad,
    -- add a table entry below matching the plugin github name
@@ -33,7 +32,7 @@ M.plugins = {
    default_plugin_config_replace = {},
 }
 
-vim.g.pydocstring_formatter = 'numpy'
-vim.g.pydocstring_doq_path = '/usr/local/bin/doq'
+vim.g.pydocstring_formatter = "numpy"
+vim.g.pydocstring_doq_path = "/usr/local/bin/doq"
 
 return M
