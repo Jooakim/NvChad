@@ -18,13 +18,13 @@ M.setup_lsp = function(attach, capabilities)
       }
    end
 
-  -- lspservers with special config
-  -- nvim_lsp.pyright.setup {
-  -- on_init = function(client)
-  --   client.config.settings.python.analysis.extrapaths = { "tests" }
-  --   client.notify("workspace/didChangeConfiguration")
-  --   return true
-  -- end
--- }
+   -- lspservers with special config
+   -- nvim_lsp.pyright.setup {
+   -- on_init = function(client)
+   --   client.config.settings.python.analysis.extrapaths = { "tests" }
+   --   client.notify("workspace/didChangeConfiguration")
+   --   return true
+   -- end
+   -- }
 end
 return M
