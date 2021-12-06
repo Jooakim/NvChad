@@ -1,37 +1,37 @@
 local ok, null_ls = pcall(require, "null-ls")
 
 if not ok then
-   return
+  return
 end
 
 local b = null_ls.builtins
 
 local sources = {
 
-   -- Python
-   b.formatting.black,
-   b.diagnostics.flake8,
-   b.formatting.isort,
+  -- Python
+  b.formatting.black,
+  b.diagnostics.flake8,
+  b.formatting.isort,
 
-   -- JSON
-   b.formatting.json_tool,
+  -- JSON
+  b.formatting.json_tool,
 
-   -- Lua
-   b.formatting.stylua,
-   b.diagnostics.luacheck.with { extra_args = { "--global vim" } },
+  -- Lua
+  b.formatting.stylua,
+  b.diagnostics.luacheck.with { extra_args = { "--global vim" } },
 
-   -- Shell
-   b.formatting.shfmt,
-   b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
+  -- Shell
+  b.formatting.shfmt,
+  b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
 }
 
 local M = {}
 
 M.setup = function(on_attach)
-   null_ls.config {
-      sources = sources,
-   }
-   require("lspconfig")["null-ls"].setup { on_attach = on_attach }
+  null_ls.config {
+    sources = sources,
+  }
+  require("lspconfig")["null-ls"].setup { on_attach = on_attach }
 end
 
 return M
