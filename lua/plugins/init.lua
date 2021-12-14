@@ -136,13 +136,13 @@ return packer.startup(function()
       config = override_req("nvim_cmp", "plugins.configs.cmp"),
    }
 
-   use {
-      "L3MON4D3/LuaSnip",
-      disable = not plugin_settings.status.cmp,
-      wants = "friendly-snippets",
-      after = "nvim-cmp",
-      config = override_req("luasnip", "(plugins.configs.others).luasnip()"),
-   }
+     use {
+        "L3MON4D3/LuaSnip",
+        disable = not plugin_settings.status.cmp,
+        wants = "friendly-snippets",
+        after = "nvim-cmp",
+        config = override_req("luasnip", "(plugins.configs.others).luasnip()"),
+     }
 
    use {
       "saadparwaiz1/cmp_luasnip",

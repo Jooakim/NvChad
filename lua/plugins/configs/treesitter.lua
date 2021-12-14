@@ -6,8 +6,7 @@ end
 
 ts_config.setup {
    ensure_installed = {
-      "lua",
-      "vim",
+      "lua", "python"
    },
    highlight = {
       enable = true,
