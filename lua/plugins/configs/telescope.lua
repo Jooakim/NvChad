@@ -61,21 +61,23 @@ local options = {
           case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
           -- the default case_mode is "smart_case"
         },
-        -- project = {
-        --   base_dirs = {
-        --     '~/dev/',
-        --   }
-        -- }
+        project = {
+          base_dirs = {
+            '~/dev',
+          }
+        }
+      }
    },
 
-   extensions_list = { "themes", "terms" },
+   extensions_list = { "themes", "terms" , "fzf" , "project" },
 }
 
 -- check for any override
 options = require("core.utils").load_override(options, "nvim-telescope/telescope.nvim")
 telescope.setup(options)
-
 -- load extensions
+ local extensions = 
+
 pcall(function()
    for _, ext in ipairs(options.extensions_list) do
       telescope.load_extension(ext)

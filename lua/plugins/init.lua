@@ -150,7 +150,6 @@ local plugins = {
    ["hrsh7th/cmp-path"] = {
       after = "cmp-buffer",
    },
-
    -- misc plugins
    ["windwp/nvim-autopairs"] = {
       after = "nvim-cmp",

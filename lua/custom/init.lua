@@ -1,4 +1,9 @@
 local map = require("core.utils").map
+
+-- Movement maps
+map("n", "<C-l>","<C-W><C-L>")
+map("n", "<C-h>","<C-W><C-H>")
+
 map("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>")
 map("n", "<leader>B", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
 map("n", "<leader>dc", ":lua require'dap'.continue()<CR>")
@@ -21,16 +26,27 @@ map("n", "<leader>dj", ':lua require"dap".down()<CR>')
 
 map("n", "<leader>dq", ':lua require"dap".disconnect({ terminateDebuggee = true });require"dap".close()<CR>')
 
--- map('n', '<leader>di', ':lua require"dap.ui.variables".hover()<CR>')
--- map('n', '<leader>di', ':lua require"dap.ui.variables".visual_hover()<CR>')
-map("n", "<leader>di", ':lua require"dap.ui.widgets".hover()<CR>')
--- map('n', '<leader>d?', ':lua require"dap.ui.variables".scopes()<CR>')
 map("n", "<leader>de", ':lua require"dap".set_exception_breakpoints({"all"})<CR>')
 
 map("n", "<leader>d?", ':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>')
 
 -- Telescope mappings
-map("n", "<leader>fp", ':lua require("telescope").extensions.project.project{}<CR>')
+map("n", "<leader>fp", ':Telescope project<CR>')
+map("n", "<leader>fr", ':Telescope resume<CR>')
+
+-- nvim metals
+local cmd = vim.cmd
+cmd [[augroup lsp]]
+cmd [[au!]]
+-- maybe include java here?
+cmd [[au FileType scala,sbt lua require("metals").initialize_or_attach({})]]
+cmd [[augroup end]]
+
+local metals_config = require("metals").bare_config()
+metals_config.init_options.statusBarProvider = "on"
+metals_config.settings = {
+  gradleScript = '/home/joakim/dev/main/gradlew',
+}
 
 local customPlugins = require "core.customPlugins"
 
@@ -57,37 +73,25 @@ customPlugins.add(function(use)
       require("custom.plugin_confs.null-ls").setup()
     end,
   }
-  -- use {
-  --   "nvim-telescope/telescope-project.nvim",
-  --   event = "InsertEnter",
-  --   after = "telescope.nvim",
-  --   config = function()
-  --     require("telescope").load_extension("project")
-  --   end,
-  -- }
+  use {
+    "nvim-telescope/telescope-project.nvim",
+    requires = { "nvim-telescope/telescope.nvim" }
+  }
 
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'make'
   }
-  -- use {
-  --   "nvim-telescope/telescope-github.nvim",
-  --   event = "InsertEnter",
-  --   after = "telescope.nvim",
-  --   config = function()
-  --     require("telescope").load_extension "gh"
-  --   end,
-  -- }
+  use {
+    'scalameta/nvim-metals',
+    requires = { "nvim-lua/plenary.nvim" }
+  }
   use {
     "heavenshell/vim-pydocstring",
     event = "InsertEnter",
   }
   use {
-    "rcarriga/nvim-dap-ui",
-    requires = { "mfussenegger/nvim-dap" },
-    config = function()
-      require("dapui").setup()
-    end,
+    "mfussenegger/nvim-dap"
   }
   use {
     "mfussenegger/nvim-dap-python",
@@ -96,4 +100,12 @@ customPlugins.add(function(use)
       require("dap-python").test_runner = "pytest"
     end,
   }
+  use {
+    "rcarriga/vim-ultest",
+    requires = { "vim-test/vim-test" },
+    run = ":UpdateRemotePlugins"
+  }
 end)
+
+-- Create a Format function
+cmd([[command! Format lua vim.lsp.buf.formatting()]])

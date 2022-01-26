@@ -39,6 +39,10 @@ opt.ruler = false
 -- disable nvim intro
 opt.shortmess:append "sI"
 
+-- NOTE: Without doing this, autocommands that deal with filetypes prohibit messages from being shown,
+-- so some of the messages we show to help users get started may not be shown.
+opt.shortmess:remove "F"
+
 opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true
