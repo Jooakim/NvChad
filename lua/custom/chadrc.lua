@@ -35,5 +35,4 @@ M.plugins = {
 --vim.g.pydocstring_formatter = "numpy"
 vim.g.pydocstring_doq_path = "/home/joakim/.local/bin/doq"
 
-require("dap-python").test_runner = "pytest"
 return M

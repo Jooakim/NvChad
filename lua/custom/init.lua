@@ -13,7 +13,7 @@ map("n", "<leader>dr", ":lua require'dap'.step_out()<CR>")
 
 map("n", "<leader>lp", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
 
-map("n", "<leader>dr", ':lua require"dap".repl.toggle({}, "vsplit")<CR><C-w>l')
+map("n", "<leader>dR", ':lua require"dap".repl.toggle({}, "vsplit")<CR><C-w>l')
 map("n", "<leader>dl", ":lua require'dap'.run_last.open()<CR>")
 
 map("n", "<leader>dm", ":lua require'dap-python'.test_method({justMyCode = false}).open()<CR>") -- todo make this a function that will call correct thing based on file extension
@@ -29,10 +29,19 @@ map("n", "<leader>dq", ':lua require"dap".disconnect({ terminateDebuggee = true 
 map("n", "<leader>de", ':lua require"dap".set_exception_breakpoints({"all"})<CR>')
 
 map("n", "<leader>d?", ':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>')
+map("n", "<leader>d/", ":lua require('dap.ui.widgets').hover()<CR>")
 
 -- Telescope mappings
 map("n", "<leader>fp", ':Telescope project<CR>')
 map("n", "<leader>fr", ':Telescope resume<CR>')
+
+map("n", "<leader>[", ':lua vim.diagnostic.goto_next()<CR>')
+map("n", "<leader>]", ':lua vim.diagnostic.goto_prev()<CR>')
+-- pydocstring
+-- This will remove any existing keybindings inherited from pydocstring
+-- The reason is because <C-l> was bound to :Pydocstring which conflicts
+-- with movement mappings above
+map("n", "<silent> <C-_>", '<Plug>(pydocstring)')
 
 -- nvim metals
 local cmd = vim.cmd
@@ -98,14 +107,28 @@ customPlugins.add(function(use)
     config = function()
       require("dap-python").setup "~/.virtualenvs/debugpy/bin/python"
       require("dap-python").test_runner = "pytest"
-    end,
-  }
-  use {
-    "rcarriga/vim-ultest",
-    requires = { "vim-test/vim-test" },
-    run = ":UpdateRemotePlugins"
-  }
+      table.insert(require('dap').configurations.python, {
+        type = 'python';
+        request = 'attach';
+        name = 'Docker Debug';
+        host = '127.0.0.1';
+        port = 5678;
+        pathMappings = {
+          {  -- Map Neovim working directory to debuggee working directory
+          localRoot = '${workspaceFolder}',
+          remoteRoot = '.'
+        };
+        justMyCode = false;
+      },
+    })
+  end,
+}
+use {
+  "rcarriga/vim-ultest",
+  requires = { "vim-test/vim-test" },
+  run = ":UpdateRemotePlugins"
+}
 end)
 
 -- Create a Format function
-cmd([[command! Format lua vim.lsp.buf.formatting()]])
+cmd([[command! Format lua vim.lsp.buf.formatting_sync()]])
