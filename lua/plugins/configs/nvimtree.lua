@@ -21,7 +21,7 @@ local options = {
       update_cwd = false,
    },
    view = {
-      side = "left",
+      side = "top",
       width = 25,
       hide_root_folder = true,
    },
