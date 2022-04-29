@@ -37,13 +37,13 @@ local plugins = {
       end,
    },
 
-   ["akinsho/bufferline.nvim"] = {
-      tag = "v2.*",
-      after = "nvim-web-devicons",
-      config = function()
-         require "plugins.configs.bufferline"
-      end,
-   },
+   -- ["akinsho/bufferline.nvim"] = {
+   --    tag = "v2.*",
+   --    after = "nvim-web-devicons",
+   --    config = function()
+   --       require "plugins.configs.bufferline"
+   --    end,
+   -- },
 
    ["lukas-reineke/indent-blankline.nvim"] = {
       event = "BufRead",
@@ -106,8 +106,6 @@ local plugins = {
          require("plugins.configs.others").signature()
       end,
    },
-
- 
 
    -- load luasnips + cmp related in insert mode only
 

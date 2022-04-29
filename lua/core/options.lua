@@ -80,6 +80,7 @@ local default_plugins = {
    "vimballPlugin",
    "zip",
    "zipPlugin",
+   "matchparen",
 }
 
 for _, plugin in pairs(default_plugins) do

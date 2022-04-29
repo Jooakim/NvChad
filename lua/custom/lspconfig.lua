@@ -18,31 +18,37 @@ local function get_python_path(workspace)
     print(env_path)
     return env_path
   end
+
+  -- Find and use virtualenv via poetry in workspace directory.
+  local match = vim.fn.glob(path.join(workspace, "poetry.lock"))
+  if match ~= "" then
+     local venv = vim.fn.trim(vim.fn.system "poetry env info -p")
+     return path.join(venv, "bin", "python")
+  end
+
 end
 
 M.setup_lsp = function(attach, capabilities)
-  local lsp_installer = require "nvim-lsp-installer"
-  lsp_installer.on_server_ready(function(server)
-    local opts = {
-      on_attach = attach,
-      capabilities = capabilities,
-      flags = {
-        debounce_text_changes = 150,
-      },
-    }
+  local lspconfig = require('lspconfig')
+  local opts = {
+    on_attach = attach,
+    capabilities = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    },
+  }
 
-    -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
-    if server.name == "pyright" then
-      opts.root_dir = vim.loop.cwd
-      opts.on_init = function(client)
-        client.config.settings.python.pythonPath = get_python_path(client.config.root_dir)
-      end
+  lspconfig.jdtls.setup(opts)
+  lspconfig.jsonls.setup(opts)
+  lspconfig.sumneko_lua.setup(opts)
+  lspconfig.tsserver.setup(opts)
+  lspconfig.svelte.setup(opts)
+  -- lspconfig.sourcery.setup(opts)
 
-    end
-    server:setup(opts)
-  end)
+  opts.root_dir = vim.loop.cwd
+  opts.on_init = function(client)
+    client.config.settings.python.pythonPath = get_python_path(client.config.root_dir)
+  end
+  lspconfig.pyright.setup(opts)
 end
 return M

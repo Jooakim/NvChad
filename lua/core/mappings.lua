@@ -38,8 +38,8 @@ M.general = {
       ["<C-c>"] = { "<cmd> %y+ <CR>", "  copy whole file" },
 
       -- line numbers
-      ["<leader>n"] = { "<cmd> set nu! <CR>", "   toggle line number" },
-      ["<leader>rn"] = { "<cmd> set rnu! <CR>", "   toggle relative number" },
+      -- ["<leader>n"] = { "<cmd> set nu! <CR>", "   toggle line number" },
+      -- ["<leader>rn"] = { "<cmd> set rnu! <CR>", "   toggle relative number" },
 
       -- update nvchad
       ["<leader>uu"] = { "<cmd> :NvChadUpdate <CR>", "  update nvchad" },
@@ -145,7 +145,7 @@ M.lspconfig = {
          "   lsp definition type",
       },
 
-      ["<leader>ra"] = {
+      ["<leader>rn"] = {
          function()
             require("ui.renamer").open()
          end,
@@ -166,7 +166,7 @@ M.lspconfig = {
          "   lsp references",
       },
 
-      ["<leader>f"] = {
+      ["ge"] = {
          function()
             vim.diagnostic.open_float()
          end,
