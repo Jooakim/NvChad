@@ -62,11 +62,11 @@ M.bufferline = {
 
    n = {
       -- new buffer
-      ["<S-b>"] = { "<cmd> enew <CR>", "烙 new buffer" },
+      --["<S-b>"] = { "<cmd> enew <CR>", "烙 new buffer" },
 
       -- cycle through buffers
-      ["<TAB>"] = { "<cmd> BufferLineCycleNext <CR>", "  cycle next buffer" },
-      ["<S-Tab>"] = { "<cmd> BufferLineCyclePrev <CR>", "  cycle prev buffer" },
+      --["<TAB>"] = { "<cmd> BufferLineCycleNext <CR>", "  cycle next buffer" },
+      --["<S-Tab>"] = { "<cmd> BufferLineCyclePrev <CR>", "  cycle prev buffer" },
 
       -- close buffer + hide terminal buffer
       ["<leader>x"] = {

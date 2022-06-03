@@ -41,6 +41,7 @@ M.mappings = {
       -- Telescope mappings
       ["<leader>fp"] = { ':Telescope project<CR>', "" },
       ["<leader>fr"] = { ':Telescope resume<CR>', "" },
+      ["<leader>fs"] = { ':Telescope grep_string<CR>', "" },
 
       ["<leader>["] = { ':lua vim.diagnostic.goto_next()<CR>', "" },
       ["<leader>]"] = { ':lua vim.diagnostic.goto_prev()<CR>', "" },
